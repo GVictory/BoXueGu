@@ -60,7 +60,9 @@ public class SettingActivity extends AppCompatActivity {
         securitySetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //跳转到设置密保界面
+                Intent intent=new Intent(SettingActivity.this,FindPswActivity.class);
+                intent.putExtra("from","security");
+                startActivity(intent);
             }
         });
 

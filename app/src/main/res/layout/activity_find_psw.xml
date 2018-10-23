@@ -11,6 +11,7 @@
     <include layout="@layout/main_title_bar" />
 
     <TextView
+        android:id="@+id/userNameText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="35dp"
@@ -19,7 +20,7 @@
         android:text="您的用户名是？"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <EditText
         android:id="@+id/userName"
@@ -40,6 +41,7 @@
         android:visibility="gone"/>
 
     <TextView
+        android:id="@+id/validateNameText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="35dp"
