@@ -1,11 +1,13 @@
 package com.boxuegu.Activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.preference.DialogPreference;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -19,6 +21,8 @@ import com.boxuegu.utils.DBUtils;
 import org.w3c.dom.Text;
 
 public class UserInfoActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final int CHANGE_NICKNANE = 1;
+    private static final int CHANGE_SIGNATURE = 2;
     private TextView back;
     private TextView mainTitle;
     private TextView nickNameText;
@@ -46,6 +50,7 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
         titleBar.setBackgroundColor(Color.parseColor("#30b4ff"));
         nickName = (RelativeLayout) findViewById(R.id.nickName);
         userName = (RelativeLayout) findViewById(R.id.userName);
+        signature= (RelativeLayout) findViewById(R.id.signature);
         sex = (RelativeLayout) findViewById(R.id.sex);
         signatureText = (TextView) findViewById(R.id.signatureText);
         nickNameText = (TextView) findViewById(R.id.nickNameText);
@@ -80,6 +85,7 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
         nickName.setOnClickListener(this);
         userName.setOnClickListener(this);
         sex.setOnClickListener(this);
+        signature.setOnClickListener(this);
     }
 
     @Override
@@ -89,13 +95,25 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
                 this.finish();
                 break;
             case R.id.nickName:
+                String name = nickNameText.getText().toString();
+                Bundle bundle = new Bundle();
+                bundle.putString("content", name);
+                bundle.putString("title","昵称");
+                bundle.putInt("flag", 1);
+                enterActivityForResult(ChangeUserInfoActivity.class, CHANGE_NICKNANE, bundle);
+                break;
+            case R.id.signature:
+                String signature = signatureText.getText().toString();
+                Bundle signBundle = new Bundle();
+                signBundle.putInt("flag", 2);
+                signBundle.putString("title","签名");
+                signBundle.putString("content", signature);
+                enterActivityForResult(ChangeUserInfoActivity.class, CHANGE_SIGNATURE, signBundle);
                 break;
             case R.id.userName:
                 break;
             case R.id.sex:
                 sexDialog(sexText.getText().toString());
-                break;
-            case R.id.signature:
                 break;
             default:
                 break;
@@ -116,15 +134,52 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                Toast.makeText(UserInfoActivity.this,item[which],Toast.LENGTH_SHORT).show();
+                Toast.makeText(UserInfoActivity.this, item[which], Toast.LENGTH_SHORT).show();
                 setSex(item[which]);
             }
         });
         builder.create().show();
     }
 
-    private void setSex(String sex){
+    private void setSex(String sex) {
         sexText.setText(sex);
-        DBUtils.getInstance(UserInfoActivity.this).updateUserInfo("sex",sex,spUserName);
+        DBUtils.getInstance(UserInfoActivity.this).updateUserInfo("sex", sex, spUserName);
+    }
+
+    public void enterActivityForResult(Class<?> to, int requestCode, Bundle bundle) {
+        Intent intent = new Intent(this, to);
+        intent.putExtras(bundle);
+        startActivityForResult(intent, requestCode);
+    }
+
+    private String new_info;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case CHANGE_NICKNANE:
+                if (data != null) {
+                    new_info = data.getStringExtra("nickName");
+                    if (TextUtils.isEmpty(new_info)) {
+                        return;
+                    }
+                    nickNameText.setText(new_info);
+                    DBUtils.getInstance(UserInfoActivity.this).updateUserInfo("nickName", new_info, spUserName);
+                }
+                break;
+            case CHANGE_SIGNATURE:
+                if (data != null) {
+                    new_info = data.getStringExtra("signature");
+                    if (TextUtils.isEmpty(new_info)) {
+                        return;
+                    }
+                    signatureText.setText(new_info);
+                    DBUtils.getInstance(UserInfoActivity.this).updateUserInfo("signature", new_info, spUserName);
+                }
+                break;
+            default:
+                break;
+        }
     }
 }
