@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.boxuegu.Activity.LoginActivity;
 import com.boxuegu.Activity.SettingActivity;
+import com.boxuegu.Activity.UserInfoActivity;
 import com.boxuegu.R;
 import com.boxuegu.utils.AnalysisUtils;
 
@@ -54,7 +55,8 @@ public class MeView {
              @Override
              public void onClick(View v) {
                  if (readLoginStatus()){
-
+                     Intent intent=new Intent(mContext, UserInfoActivity.class);
+                     mContext.startActivity(intent);
                  }else{
                      Intent intent=new Intent(mContext, LoginActivity.class);
                      mContext.startActivityForResult(intent,1);
