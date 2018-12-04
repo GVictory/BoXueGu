@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.boxuegu.R;
+import com.boxuegu.view.CourseView;
 import com.boxuegu.view.ExercisesView;
 import com.boxuegu.view.MeView;
 
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     private LinearLayout bottomBar;
     private MeView myView;
     private ExercisesView mExercisesView;
+    private CourseView mCourseView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +112,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                 courseImage.setImageResource(R.drawable.main_course_icon_selected);
                 title.setText("博学谷课程");
                 titleBar.setVisibility(View.VISIBLE);
+                titleBar.setBackgroundColor(Color.parseColor("#30B4FF"));
                 break;
             case 1:
                 exercisesText.setTextColor(Color.parseColor("#0097F7"));
@@ -147,7 +150,13 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     private void createView(int index){
         switch (index){
             case 0:
-
+                if(mCourseView==null){
+                    mCourseView=new CourseView(this);
+                    bodyLayout.addView(mCourseView.getView());
+                }else {
+                    mCourseView.getView();
+                }
+                mCourseView.showView();
                 break;
             case 1:
                 if (mExercisesView==null){
