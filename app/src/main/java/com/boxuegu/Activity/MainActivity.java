@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.boxuegu.R;
+import com.boxuegu.view.ExercisesView;
 import com.boxuegu.view.MeView;
 
 public class MainActivity extends AppCompatActivity  implements View.OnClickListener{
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 //    导航栏视图
     private LinearLayout bottomBar;
     private MeView myView;
+    private ExercisesView mExercisesView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,7 +150,13 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
                 break;
             case 1:
-
+                if (mExercisesView==null){
+                    mExercisesView=new ExercisesView(this);
+                    bodyLayout.addView(mExercisesView.getView());
+                }else {
+                    mExercisesView.getView();
+                }
+                mExercisesView.showView();
                 break;
             case 2:
                 if(myView==null) {
