@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.boxuegu.Activity.LoginActivity;
+import com.boxuegu.Activity.PlayHistoryActivity;
 import com.boxuegu.Activity.SettingActivity;
 import com.boxuegu.Activity.UserInfoActivity;
 import com.boxuegu.R;
@@ -67,7 +68,8 @@ public class MeView {
              @Override
              public void onClick(View v) {
                  if (readLoginStatus()){
-
+                     Intent intent=new Intent(mContext, PlayHistoryActivity.class);
+                     mContext.startActivity(intent);
                  }else {
                      Toast.makeText(mContext, "您还未登录，请进行登录", Toast.LENGTH_SHORT).show();
                  }

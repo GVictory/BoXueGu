@@ -1,5 +1,6 @@
 package com.boxuegu.adapter;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.boxuegu.Activity.VideoListActivity;
 import com.boxuegu.R;
 import com.boxuegu.bean.CourseBean;
 
@@ -88,7 +90,10 @@ public class CourseAdapter extends BaseAdapter {
 							@Override
 							public void onClick(View v) {
 							// 跳转到课程详情界面
-
+								Intent intent=new Intent(mContext, VideoListActivity.class);
+								intent.putExtra("id",bean.id);
+								intent.putExtra("intro",bean.intro);
+								mContext.startActivity(intent);
 							}
 						});
 						break;
@@ -100,7 +105,10 @@ public class CourseAdapter extends BaseAdapter {
 							@Override
 							public void onClick(View v) {
 							// 跳转到课程详情界面
-
+								Intent intent=new Intent(mContext, VideoListActivity.class);
+								intent.putExtra("id",bean.id);
+								intent.putExtra("intro",bean.intro);
+								mContext.startActivity(intent);
 							}
 						});
 

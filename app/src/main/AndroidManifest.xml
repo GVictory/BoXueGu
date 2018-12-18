@@ -24,7 +24,10 @@
         <activity android:name=".Activity.FindPswActivity" />
         <activity android:name=".Activity.UserInfoActivity" />
         <activity android:name=".Activity.ChangeUserInfoActivity" />
-        <activity android:name=".Activity.ExercisesDetailActivity"></activity>
+        <activity android:name=".Activity.ExercisesDetailActivity" />
+        <activity android:name=".Activity.VideoListActivity" />
+        <activity android:name=".Activity.VideoPlayActivity" />
+        <activity android:name=".Activity.PlayHistoryActivity"></activity>
     </application>
 
 </manifest>
